@@ -1,9 +1,10 @@
 
+## It is highly recommended to use Fedora Linux for this project
 ### Log Information:
 
 - CSV required with columns: Case ID, Activity, Resource, Start Timestamp, Complete Timestamp
-- see the `preprocessing` file if start timestamps are missing
-- see the `preprocessing` file if start and end events need to be merged
+- See the `preprocessing` file if start timestamps are missing
+- See the `preprocessing` file if start and end events need to be merged
 - The Helpdesk and ACR logs are ready to use in BPM_Resource_Allocation/bpo-project/bpo/
 
 ### Step 0: Setup
@@ -14,7 +15,10 @@
   ./setup.sh
 ```
 - If you encounter any problems, make sure to execute the commands in setup.sh individually.
-- Make sure pipenv uses the existing Pipfile.lock !
+- If you use a different OS than Fedora, you will need to execute equivalent commands in setup.sh
+- An alternative setup is available, however it only works for current session (less preferred)
+- Make sure pipenv uses the existing Pipfile.lock to create the virtual environment
+- You should use the same virtual environment during the following steps
 
 ### Step 1: Discover simulation model
 - This step is done in `__main__.py` (located in BPM_Resource_Allocation/bpo-project/bpo/)
@@ -36,16 +40,19 @@
 - Change simulation properties in `run.sh`
 - Run:
 ```
+  chmod +x run.sh
   pipenv run sh run.sh
 ```
 - This will result in a .csv that includes simulation statistics
 
-## Important Notes
-- If you want to use a log other than ACR or Helpdesk, you should:
-create a separate model mining method in `__main__.py` and use it in step 1
-create a separate prediction model in `task_execution_time.py` and use it in step 2
-adjust `test.py` to include your mined models
-- Dont forget to specify necessary input and output file names and locations at each step
+
+### If you want to use a log other than ACR or Helpdesk, you should:
+- Create a separate model mining method in `__main__.py` and use it in step 1
+- Create a separate prediction model in `task_execution_time.py` and use it in step 2
+- Adjust `test.py` to include your mined models
+### Important Notes
+- Dont forget to specify necessary input and output file names at each step
+- Avoid using Virtual Machines for this project !
 
 
 

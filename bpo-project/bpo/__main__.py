@@ -10,6 +10,10 @@ import pandas
 import numpy as np
 import datetime
 
+"""
+This file is responsible for mining the simulation models. Configure and run the methods try_mine_helpdesk_problem() and try_mine_acr_problem(). 
+See miners.py for the configuration parameters. Running the mentioned methods will result in the mined simulation model in the form of a .pickle file
+"""
 
 def try_mmc():
     planner = GreedyPlanner()
@@ -97,10 +101,9 @@ def try_mine_helpdesk_problem():
                                           min_resource_count=1,
                                           # for 15-minute intervals:
                                           resource_schedule_timeunit=datetime.timedelta(hours=1),
-                                          resource_schedule_repeat=int(24*7), # 15-min intervals for a week (672 slots)
+                                          resource_schedule_repeat=int(24*7), 
                                           max_error_std=UniformDistribution(0.05,0.2))
  # DUPLICATE has one resource
- 
  if "DUPLICATE" not in problem.resource_pools or not problem.resource_pools["DUPLICATE"]:
         problem.resource_pools["DUPLICATE"] = ["Value 2"]
 
@@ -113,8 +116,8 @@ def try_mine_helpdesk_problem():
     problem.resource_pools["RESOLVED"] = ["Value 1", "Value 2"]
 
  #problem.save("HELPDESK_Problem_1hour.pickle")
- problem.save("HELPDESK_Problem_TESTIN.pickle")
- print("Model mining complete. Saved to HELPDESK_Problem_TESTIN.pickle")
+ problem.save("HELPDESK_Problem_TESTIN2.pickle")
+ print("Model mining complete. Saved to HELPDESK_Problem_TESTIN2.pickle")
 
 def try_mine_acr_problem():
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -127,7 +130,7 @@ def try_mine_acr_problem():
                            datafields= {},
                            min_resource_count=1,
                            resource_schedule_timeunit=datetime.timedelta(hours=1),
-                           resource_schedule_repeat=int(24*7), # 15-min intervals for a week (672 slots)
+                           resource_schedule_repeat=int(24*7), 
                            max_error_std=UniformDistribution(0.05, 0.2))
     problem.save("ACR_problem_TESTIN.pickle")
     print("Model mining complete. Saved to ACR_problem_TESTIN.pickle")

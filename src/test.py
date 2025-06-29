@@ -23,7 +23,11 @@ import sys
 import os
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
-
+"""
+This file is responsible for the actual simulations that should use your mined simulation and prediction models. 
+Configure the file names of your mined simulation model and prediction model. You can then execute run.sh with your desired simulation properties
+to collect your simulation statistics. These statistics will be stored in the csv that is specified in this file (in lines 155-170)
+"""
 
 def run_simulator(problem, days, objective, delta, result_queue, selection_strategy=None):
     real_start_time = time.time()
@@ -38,7 +42,7 @@ def run_simulator(problem, days, objective, delta, result_queue, selection_strat
             prediction_model = pickle.load(file)
     elif problem == 'Helpdesk':
         #with open('prediction_model_HELPDESK_1hour.pkl', 'rb') as file:
-        with open('prediction_model_HELPDESK_TESTIN.pkl', 'rb') as file:
+        with open('prediction_model_HELPDESK_TESTIN2.pkl', 'rb') as file:
             prediction_model = pickle.load(file)
     elif problem == 'ACR':
         with open('prediction_model_ACR_TESTIN.pkl', 'rb') as file:
@@ -66,14 +70,20 @@ def run_simulator(problem, days, objective, delta, result_queue, selection_strat
     elif objective == "Random":
         policy = RandomPolicy()
 
+
+        #to get  directory 
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+        #going to the bpo-project/bpo directory
+    bpo_path = os.path.abspath(os.path.join(script_dir, "..", "bpo-project", "bpo"))
+
     if problem == 'BPIC':
         instance_file = 'src/simulator/data/BPI Challenge 2017 - instance.pickle'
     elif problem == 'PO':
         instance_file = 'src/simulator/data/po_problem.pickle'
     elif problem == 'Helpdesk':
-        instance_file = 'src/simulator/data/HELPDESK_Problem_TESTIN.pickle'
+        instance_file = os.path.join(bpo_path, 'HELPDESK_Problem_TESTIN2.pickle')  # updated path to use bpo_path
     elif problem == 'ACR':
-        instance_file = 'src/simulator/data/ACR_problem_TESTIN.pickle'
+        instance_file = os.path.join(bpo_path, 'ACR_problem_TESTIN.pickle')
 
     
 
